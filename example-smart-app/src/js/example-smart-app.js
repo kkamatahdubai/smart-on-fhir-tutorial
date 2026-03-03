@@ -17,7 +17,10 @@
                       code: {
                         $or: ['http://loinc.org|8302-2', 'http://loinc.org|8462-4',
                               'http://loinc.org|8480-6', 'http://loinc.org|2085-9',
-                              'http://loinc.org|2089-1', 'http://loinc.org|85354-9']
+                              'http://loinc.org|2089-1', 'http://loinc.org|85354-9',
+                              'http://loinc.org|2089-1', 'http://loinc.org|8310-5',
+                              
+                             ]
                       }
                      }
                   });
@@ -30,6 +33,7 @@
 
           var fname = '';
           var lname = '';
+          var temp = bycodes('8310-5');
 
           if (typeof patient.name[0] !== 'undefined') {
             fname = patient.name[0].given.join(' ');
@@ -48,6 +52,7 @@
           p.fname = fname;
           p.lname = lname;
           p.height = getQuantityValueAndUnit(height[0]);
+          p.temperature = temp;
 
           if (typeof systolicbp != 'undefined')  {
             p.systolicbp = systolicbp;
@@ -83,6 +88,7 @@
       diastolicbp: {value: ''},
       ldl: {value: ''},
       hdl: {value: ''},
+      temperature: {valie: ''}
     };
   }
 
@@ -126,6 +132,7 @@
     $('#diastolicbp').html(p.diastolicbp);
     $('#ldl').html(p.ldl);
     $('#hdl').html(p.hdl);
+    $('#Temperature').html(p.temperature);
   };
 
 })(window);
