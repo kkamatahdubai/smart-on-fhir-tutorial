@@ -33,7 +33,7 @@
 
           var fname = '';
           var lname = '';
-          var temp = bycodes('8310-5');
+         
 
           if (typeof patient.name[0] !== 'undefined') {
             fname = patient.name[0].given.join(' ');
@@ -45,6 +45,7 @@
           var diastolicbp = getBloodPressureValue(byCodes('85354-9'),'8462-4');
           var hdl = byCodes('2085-9');
           var ldl = byCodes('2089-1');
+           var temp = bycodes('8310-5');
 
           var p = defaultPatient();
           p.birthdate = patient.birthDate;
