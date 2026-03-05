@@ -24,7 +24,9 @@
                       }
                      }
                   });
-
+      var allergies = smart.patient.api.fetchAll({
+      type: "AllergyIntolerance"
+  });
         $.when(pt, obv).fail(onError);
 
         $.when(pt, obv).done(function(patient, obv) {
@@ -65,7 +67,8 @@
 
           p.hdl = getQuantityValueAndUnit(hdl[0]);
           p.ldl = getQuantityValueAndUnit(ldl[0]);
-
+          p.allergy = allergies[0]
+         console.log("Patient:", p);
           ret.resolve(p);
         });
       } else {
@@ -89,7 +92,8 @@
       diastolicbp: {value: ''},
       ldl: {value: ''},
       hdl: {value: ''},
-      temperature: {value: ''}
+      temperature: {value: '',}
+      allergy: {value: '',}
     };
   }
 
@@ -134,6 +138,7 @@
     $('#ldl').html(p.ldl);
     $('#hdl').html(p.hdl);
     $('#Temperature').html(p.temperature);
+    $('#Allergy').html(p.allergy);
   };
 
 })(window);
