@@ -68,7 +68,7 @@
           p.hdl = getQuantityValueAndUnit(hdl[0]);
           p.ldl = getQuantityValueAndUnit(ldl[0]);
           p.allergy = allergies[0]
-         console.log("Patient:", p);
+         console.log("Allergies:", allergies);
           ret.resolve(p);
         });
       } else {
