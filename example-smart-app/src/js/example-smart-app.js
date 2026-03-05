@@ -92,8 +92,8 @@
       diastolicbp: {value: ''},
       ldl: {value: ''},
       hdl: {value: ''},
-      temperature: {value: '',}
-      allergy: {value: '',}
+      temperature: {value: ''},
+      allergy: {value: ''},
     };
   }
 
