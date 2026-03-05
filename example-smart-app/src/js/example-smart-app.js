@@ -93,7 +93,7 @@
       ldl: {value: ''},
       hdl: {value: ''},
       temperature: {value: ''},
-      allergy: {value: ''},
+      allergy: {value: ''}
     };
   }
 
