@@ -24,11 +24,13 @@
                       }
                      }
                   });
-    
+    var allergies = smart.patient.api.fetchAll({
+    type: 'AllergyIntolerance'
+    });
  
-        $.when(pt, obv).fail(onError);
+     $.when(pt, obv, allergies).fail(onError);
 
-        $.when(pt, obv).done(function(patient, obv) {
+    $.when(pt, obv, allergies).done(function(patient, obv, allergies) {
           var byCodes = smart.byCodes(obv, 'code');
           var gender = patient.gender;
 
@@ -67,6 +69,28 @@
 
           p.hdl = getQuantityValueAndUnit(hdl[0]);
           p.ldl = getQuantityValueAndUnit(ldl[0]);
+      var allergyNames = [];
+
+    allergies.forEach(function(allergy){
+
+    var substance = '';
+
+  if (allergy.code) {
+    substance =
+      allergy.code.text ||
+      (allergy.code.coding &&
+       allergy.code.coding[0] &&
+       allergy.code.coding[0].display);
+  }
+
+  if (substance) {
+    allergyNames.push(substance);
+  }
+  console.log("Allergy:", substance, "| Status:", status);
+
+});
+
+p.allergy = allergyNames.join(', ');
           ret.resolve(p);
         });
       } else {
