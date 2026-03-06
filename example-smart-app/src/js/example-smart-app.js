@@ -48,9 +48,6 @@
           var ldl = byCodes('2089-1');
            var temp = byCodes('8310-5');
 
- var allergies = smart.patient.api.fetchAll({
-    type: "AllergyIntolerance"
-  });
 
           var p = defaultPatient();
           p.birthdate = patient.birthDate;
@@ -70,8 +67,6 @@
 
           p.hdl = getQuantityValueAndUnit(hdl[0]);
           p.ldl = getQuantityValueAndUnit(ldl[0]);
-          p.allergy = allergies[1]
-         console.log("Allergies:", allergies);
           ret.resolve(p);
         });
       } else {
