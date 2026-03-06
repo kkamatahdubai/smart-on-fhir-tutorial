@@ -160,7 +160,7 @@ p.allergy = allergyNames.join(', ');
     $('#ldl').html(p.ldl);
     $('#hdl').html(p.hdl);
     $('#Temperature').html(p.temperature);
-    $('#Allergy').html(p.allergy);
+    $('#Allergies').html(p.allergy);
   };
 
 })(window);
