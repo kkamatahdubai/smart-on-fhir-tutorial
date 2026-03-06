@@ -1,119 +1,117 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge' />
-    <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
-    <title>Example-SMART-App</title>
+<html>
+<head>
+<meta charset="utf-8">
 
-    
-    <link rel='stylesheet' type='text/css' href='./src/css/example-smart-app.css'>
-    <!--
-      Temporarily disable cerner-smart-embeddable-lib
-      <link rel='stylesheet' type='text/css' href='./lib/css/cerner-smart-embeddable-lib-1.0.0.min.css'>
-    -->
-  </head>
-  <body>
-    <div id='errors'>
-    </div>
-    <div id="loading" class="spinner">
-      <div class="bounce1"></div>
-      <div class="bounce2"></div>
-      <div class="bounce3"></div>
-    </div>
-    <div id='holder' >
-      <h2>Example-SMART-App</h2>
+<title>SMART Patient Dashboard</title>
 
-      <h2>Patient Resource</h2>
-      <table>
-        <tr>
-          <th>First Name:</th>
-          <td id='fname'></td>
-        </tr>
-        <tr>
-          <th>Last Name:</th>
-          <td id='lname'></td>
-        </tr>
-        <tr>
-          <th>Gender:</th>
-          <td id='gender'></td>
-        </tr>
-        <tr>
-          <th>Date of Birth:</th>
-          <td id='birthdate'></td>
-        </tr>
-      </table>
-      <h2>Observation Resource</h2>
-      <table>
-        <tr>
-          <th>Height:</th>
-          <td id='height'></td>
-        </tr>
-        <tr>
-          <th>Systolic Blood Pressure:</th>
-          <td id='systolicbp'></td>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fhirclient/build/fhir-client.js"></script>
 
-        </tr>
-        <tr>
-          <th>Diastolic Blood Pressure:</th>
-          <td id='diastolicbp'></td>
-        </tr>
-        <tr>
-          <th>LDL:</th>
-          <td id='ldl'></td>
-        </tr>
-        <tr>
-          <th>HDL:</th>
-          <td id='hdl'></td>
-        </tr>
-        <tr>
-          <th>Temperature:</th>
-          <td id='Temperature'></td>
-        </tr>
-      </table>
+<link rel="stylesheet" href="style.css">
 
-  <h3>Allergies</h3>
+<script src="app.js"></script>
 
- <table>
-        <tr>
-          <th>Allergies:</th>
-          <td id='Allergy'></td>
-        </tr>
+</head>
+
+<body>
+
+<div class="header">
+SMART on FHIR Patient Dashboard
+</div>
+
+<div class="container">
+
+<div id="loading">Loading patient data...</div>
+
+<div id="holder" style="display:none;">
+
+<!-- PATIENT INFO -->
+<div class="card patient-card">
+
+<h2>Patient</h2>
+
+<div class="patient-grid">
+<div><label>First Name</label><span id="fname"></span></div>
+<div><label>Last Name</label><span id="lname"></span></div>
+<div><label>Gender</label><span id="gender"></span></div>
+<div><label>DOB</label><span id="birthdate"></span></div>
+</div>
+
+</div>
 
 
+<!-- VITALS -->
+<div class="card">
+
+<h2>Vitals</h2>
+
+<div class="vitals-grid">
+
+<div class="vital blue">
+<div class="vital-title">Height</div>
+<div class="vital-value" id="height"></div>
+</div>
+
+<div class="vital red">
+<div class="vital-title">Systolic BP</div>
+<div class="vital-value" id="systolicbp"></div>
+</div>
+
+<div class="vital orange">
+<div class="vital-title">Diastolic BP</div>
+<div class="vital-value" id="diastolicbp"></div>
+</div>
+
+<div class="vital green">
+<div class="vital-title">LDL</div>
+<div class="vital-value" id="ldl"></div>
+</div>
+
+<div class="vital green">
+<div class="vital-title">HDL</div>
+<div class="vital-value" id="hdl"></div>
+</div>
+
+<div class="vital purple">
+<div class="vital-title">Temperature</div>
+<div class="vital-value" id="Temperature"></div>
+</div>
+
+</div>
+
+</div>
 
 
-        
-    </div>
-    <!-- Required JS files to enable this page to embed within an MPage -->
-    <!--
-      Temporarily disable cerner-smart-embeddable-lib
-      <script src='https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js'></script>
-      <script src='./lib/js/cerner-smart-embeddable-lib-1.0.0.min.js'></script>
-    -->
+<!-- ALLERGIES -->
+<div class="card">
 
-    <!-- Application-level javascript-->
-    <script src='./src/js/example-smart-app.js'></script>
+<h2>Allergies</h2>
 
-    <!-- FHIR Client JS Library -->
-    <script src='./lib/js/fhir-client-v0.1.12.js'></script>
+<ul id="Allergy" class="allergy-list"></ul>
 
-    <!-- Prevent session bleed caused by single threaded embedded browser and sessionStorage API -->
-    <!-- https://github.com/cerner/fhir-client-cerner-additions -->
-    <script src='./lib/js/fhir-client-cerner-additions-1.0.0.js'></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script>
-      extractData().then(
-        //Display Patient Demographics and Observations if extractData was success
-        function(p) {
-          drawVisualization(p);
-        },
+</div>
 
-        //Display 'Failed to call FHIR Service' if extractData failed
-        function() {
-          $('#loading').hide();
-          $('#errors').html('<p> Failed to call FHIR Service </p>');
-        }
-      );
-    </script>
-  </body>
+</div>
+</div>
+
+
+<script>
+
+$(document).ready(function(){
+
+  extractData().then(
+    function(p){
+      drawVisualization(p);
+    },
+    function(){
+      $('#loading').html("Error loading patient data");
+    }
+  );
+
+});
+
+</script>
+
+</body>
 </html>
