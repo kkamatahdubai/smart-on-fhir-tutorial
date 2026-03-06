@@ -73,26 +73,15 @@
 
   <h3>Allergies</h3>
 
-<p id="Allergy"></p>
+ <table>
+        <tr>
+          <th>Allergies:</th>
+          <td id='Allergy'></td>
+        </tr>
 
-<div id="loading">Loading patient data...</div>
-<div id="holder" style="display:none;"></div>
 
-<script>
 
-$(document).ready(function(){
 
-  extractData().then(
-    function(p){
-      drawVisualization(p);
-    },
-    function(){
-      $('#loading').html("Error loading patient data.");
-    }
-  );
-
-});
-</script>
         
     </div>
     <!-- Required JS files to enable this page to embed within an MPage -->
